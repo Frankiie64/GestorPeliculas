@@ -1,0 +1,27 @@
+<div class="container m-5 mx-auto">
+    {{#if (hasMovieActive moviesList)}}
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+            {{#each moviesList as |movie|}}
+                {{#if movie.status}}
+                    <div class="col-3 mt-1">
+                        <div class="card border-warning  text-bg-dark">  
+                            <img src="{{movie.imageUrl}}" class="card-img-top" alt="{{movie.title}}" style="height: 25em;">    
+                            <div class="card-body">
+                                <h5 class="card-title">{{movie.title}}</h5>
+                                <small class="card-text ">{{movie.description}}</small>
+                            </div>
+                            <ul class="list-group list-group-flush ">                                
+                                <li class="list-group-item border-warning text-bg-dark">{{movie.genero}}</li>
+                                <li class="list-group-item border-warning text-bg-dark">Disponible en cartelera</li>                               
+                            </ul>                         
+                        </div>       
+                    </div>                                         
+                {{/if}}
+            {{/each}}
+        </div>
+    {{else}}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <h1>No hay peliculas disponibles.</h1>
+        </div>
+    {{/if}}
+</div>

@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="d-flex flex-row-reverse bd-highlight">
+         <div class="p-2 bd-highlight">
+            <a type="button" class="btn btn-primary" href="/admin/movies/AddMovie">
+                Añadir Pelicula
+            </a>
+         </div>
+    </div>
+    {{#if (hasMovieActive moviesList)}}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {{#each moviesList as |movie|}}
+                <div class="col">
+                    {{#if movie.status}}
+                        <div class="card border-warning  text-bg-dark">  
+                            <img src="{{movie.imageUrl}}" class="card-img-top" alt="{{movie.title}}" style="height: 20em;">    
+                            <div class="card-body">
+                                <h5 class="card-title">{{movie.title}}</h5>
+                                <small class="card-text ">{{movie.description}}</small>
+                            </div>
+                            <ul class="list-group list-group-flush ">                                
+                                <li class="list-group-item border-warning text-bg-dark">{{movie.genero}}</li>
+                                <li class="list-group-item border-warning text-bg-dark">Disponible en cartelera</li>                                
+                            </ul>    
+                            <form method="POST" action="/admin/movies/deleteMovie">
+                                <div class="d-flex flex-row-reverse bd-highlight">
+                                    <div class="p-2 bd-highlight">
+                                        <a type="button" class="btn btn-outline-warning btn-sm" href="/admin/movies/editMovie/{{movie.id}}/?edit=true">
+                                            Editar
+                                        </a>   
+                                        <input type="hidden" name="idMovie" value="{{movie.id}}"/>
+                                        <button id="btn-delete" type="submit" class="btn btn-outline-primary btn-sm">
+                                            Eliminar
+                                        </button>                                    
+                                    </div>
+                                </div>        
+                            </form>
+                        </div>                        
+                    {{else}}
+                        <div class="card border-dark  text-bg-danger">  
+                            <img src="{{movie.imageUrl}}" class="card-img-top" alt="{{movie.title}}" style="height: 20em;" >    
+                            <div class="card-body">
+                                <h5 class="card-title">{{movie.title}}</h5>
+                                    <small class="card-text ">{{movie.description}}</small>
+                            </div>
+                            <ul class="list-group list-group-flush border-dark">
+                                <li class="list-group-item border-dark text-bg-danger">{{movie.genero}}</li>
+                                <li class="list-group-item border-dark text-bg-danger">No se encuentra en cartelera</li>
+                            </ul>    
+                            <form method="POST" action="/admin/movies/deleteMovie">
+                                <div class="d-flex flex-row-reverse bd-highlight">
+                                    <div class="p-2 bd-highlight">
+                                        <a type="button" class="btn btn-outline-warning btn-sm" href="/admin/movies/editMovie/{{movie.id}}/?edit=true">
+                                            Editar
+                                        </a>   
+                                        <input type="hidden" name="idMovie" value="{{movie.id}}"/>
+                                        <button id="btn-delete" type="submit" class="btn btn-outline-primary btn-sm">
+                                            Eliminar
+                                        </button>                                    
+                                    </div>
+                                </div>        
+                            </form> 
+                        </div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <h1>No haz creado ninguna pelicula.</h1>
+    {{/if}}
+</div>

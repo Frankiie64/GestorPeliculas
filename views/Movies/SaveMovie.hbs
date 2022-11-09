@@ -1,0 +1,58 @@
+<main>
+
+  <div class="card m-3">
+    <div class="card-header">
+    {{#if editMode}}Edición de{{else}} Creación de{{/if}} Pelicula
+    </div>
+    <div class="card-body">
+
+      <form method="POST" action="{{#if editMode}}/admin/movies/editMovie{{else}}/admin/movies/addMovie{{/if}}">
+        <div class="mb-3">
+          <label for="title" class="form-label">Titulo</label>
+          <input type="text" class="form-control" id="title" name="Title" value="{{#if editMode}}{{movieItem.title}}{{/if}}" />
+
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image Url:</label>
+          <input type="text" class="form-control" id="image" name="ImageUrl" value="{{#if editMode}}{{movieItem.imageUrl}}{{/if}}" />
+
+        </div>
+        <div class="mb-3">
+          <label for="genero" class="form-label">Género:</label>
+          <select name="Genero" id="genero" class="form-select">
+            <option {{#if (Compare  "Acción" movieItem.genero)}} selected {{/if}} value="Acción">Acción</option> 
+            <option {{#if (Compare  "Terror" movieItem.genero)}} selected {{/if}} value="Terror">Terror</option> 
+            <option {{#if (Compare  "Comedia" movieItem.genero)}} selected {{/if}} value="Comedia">Comedia</option> 
+            <option {{#if (Compare  "Suspenso" movieItem.genero)}} selected {{/if}} value="Suspenso">Suspenso</option> 
+            <option {{#if (Compare  "Documentales" movieItem.genero)}} selected {{/if}} value="Documentales">Documentales</option> 
+          </select>
+        </div>
+        <div class="mb-3">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="describe la pelicula aqui" id="description"
+                name="Description" id="description" style="height: 150px;" >{{#if editMode}}{{movieItem.description}}{{/if}}</textarea>
+                <label for="description">Descripción</label>
+            </div>          
+        </div>
+
+        {{#if editMode}}
+        <div class="form-check">
+          <input name="Status" class="form-check-input" type="checkbox" value="SI" id="status" {{#if movieItem.status}} checked {{/if}}>
+            <label class="form-check-label" for="status">
+              En cartelera
+            </label>           
+        </div>            
+        <input type="hidden" name="movieId" value="{{movieItem.id}}">
+        {{/if}}
+
+        <div class="d-flex flex-row-reverse bd-highlight">
+            <div class="p-2 bd-highlight">
+                <button type="submit" class="btn btn-outline-primary">{{#if editMode}}Actualizar{{else}}Agregar{{/if}}</button>
+                <a type="button" class="btn btn-outline-warning" href="/admin/movies/" >Volver atras</a>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</main>
