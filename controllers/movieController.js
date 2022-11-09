@@ -17,7 +17,7 @@ exports.GetIndexPost = (request,response,next) => {
     Movie.GetAll(function (movies){     
         
         const genero = request.body.generoFiltro;
-        const movieFilter = [];
+        let movieFilter = [];
 
         if(genero != "Todas"){
             movies.forEach(element => {
@@ -25,14 +25,17 @@ exports.GetIndexPost = (request,response,next) => {
                     movieFilter.push(element);
                 }
             });
-        }    
+        }
+        else{
+            movieFilter = movies;
+        }
 
         response.render("Movies/Index",{
             pageTitle: "Mantenimiento - Listar peliculas",
             itemActive : "Mantenimiento",
             serarchActive : true,
-            moviesList : movies,
-            moviesList : genero == "Todas" ? movies : movieFilter
+            moviesList : movieFilter,
+            hasMovies : movieFilter.length > 0,
         });
     })
 };
@@ -43,7 +46,7 @@ exports.AddMovie = (request,response,next) => {
     response.render("Movies/SaveMovie",{
         pageTitle: "Mantenimiento - agregar pelicula",
         itemActive : "Mantenimiento",
-        serarchActive : true,        
+        serarchActive : false,        
     });
 };
 
@@ -57,7 +60,7 @@ exports.AddMoviePost = (request,response,next) => {
     const movie = new Movie(null, title,genero,true,description,image);
     movie.Save();
 
-    response.redirect("/admin/movies/");
+    response.redirect("/");
 };
 
 exports.EditMovie = (request,response,next) => {
@@ -72,7 +75,7 @@ exports.EditMovie = (request,response,next) => {
         response.render("Movies/SaveMovie",{
             pageTitle: "Mantenimiento - editar pelicula",
             itemActive : "Mantenimiento",
-            serarchActive : true,
+            serarchActive : false,
             editMode : true,
             movieItem : movie
         });
@@ -91,7 +94,7 @@ const status = request.body.Status == 'SI';
 const movie = new Movie(id, title,genero,status,description,image);
 movie.Save();
 
-response.redirect("/admin/movies/");
+response.redirect("/");
 };
 
 
@@ -99,5 +102,5 @@ exports.DeleteMovie = (request,response,next) => {
     const id = request.body.idMovie;
 
     Movie.Delete(id);
-    response.redirect("/admin/movies/");
+    response.redirect("/");
 };
