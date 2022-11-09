@@ -9,17 +9,17 @@
       <form method="POST" action="{{#if editMode}}/admin/movies/editMovie{{else}}/admin/movies/addMovie{{/if}}">
         <div class="mb-3">
           <label for="title" class="form-label">Titulo</label>
-          <input type="text" class="form-control" id="title" name="Title" value="{{#if editMode}}{{movieItem.title}}{{/if}}" />
+          <input required type="text" class="form-control" id="title" name="Title" value="{{#if editMode}}{{movieItem.title}}{{/if}}" />
 
         </div>
         <div class="mb-3">
           <label for="image" class="form-label">Image Url:</label>
-          <input type="text" class="form-control" id="image" name="ImageUrl" value="{{#if editMode}}{{movieItem.imageUrl}}{{/if}}" />
+          <input required type="text" class="form-control" id="image" name="ImageUrl" value="{{#if editMode}}{{movieItem.imageUrl}}{{/if}}" />
 
         </div>
         <div class="mb-3">
           <label for="genero" class="form-label">Género:</label>
-          <select name="Genero" id="genero" class="form-select">
+          <select required name="Genero" id="genero" class="form-select">
             <option {{#if (Compare  "Acción" movieItem.genero)}} selected {{/if}} value="Acción">Acción</option> 
             <option {{#if (Compare  "Terror" movieItem.genero)}} selected {{/if}} value="Terror">Terror</option> 
             <option {{#if (Compare  "Comedia" movieItem.genero)}} selected {{/if}} value="Comedia">Comedia</option> 
@@ -29,11 +29,11 @@
         </div>
         <div class="mb-3">
             <div class="form-floating">
-                <textarea class="form-control" placeholder="describe la pelicula aqui" id="description"
+                <textarea required class="form-control" placeholder="describe la pelicula aqui" id="description"
                 name="Description" id="description" style="height: 150px;" >{{#if editMode}}{{movieItem.description}}{{/if}}</textarea>
                 <label for="description">Descripción</label>
             </div>          
-        </div>
+        </div> 
 
         {{#if editMode}}
         <div class="form-check">
